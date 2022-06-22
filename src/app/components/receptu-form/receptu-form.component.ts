@@ -15,7 +15,6 @@ export class ReceptuFormComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(30),
-        // this.uzdraustiVardai,
       ]),
       cookingTime: new FormControl(null, [
         Validators.required,
