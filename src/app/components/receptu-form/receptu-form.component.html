@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header">
+    Pridėti naują recepta
+  </div>
+  <div class="card-body">
+    <form [formGroup]="eForm">
+      <div class="mb-3">
+        <label for="receptName" class="form-label">Receptas:</label>
+        <input id="receptName" class="form-control" formControlName="receptName" placeholder="Įveskite recepto pavadinima">
+<!--        <span *ngIf="!eForm.get('name')?.valid && eForm.get('name')?.touched  ">Vardas įvestas neteisingai</span>-->
+      </div>
+      <div class="mb-3">
+        <label for="cookingTime" class="form-label">Gaminimo laikas min:</label>
+        <input type="number" id="cookingTime" class="form-control" formControlName="cookingTime" placeholder="Įveskite gaminimo trukme">
+      </div>
+      <div class="mb-3">
+        <label for="cookingDescription" class="form-label">Gaminimo aprasymas</label>
+        <textarea type="text" id="cookingDescription" class="form-control" formControlName="cookingDescription" placeholder="Recepto aprasymas">
+        </textarea>
+      </div>
+      <div class="mb-3">
+        <label for="photo" class="form-label">Nuoptrauka:</label>
+        <input type="text" id="photo" class="form-control" formControlName="photo" placeholder="http://asfjkasf.com">
+      </div>
+      <div class="mb-3">
+        <label for="calory" class="form-label">Kalorijos:</label>
+        <input  id="calory" class="form-control" formControlName="calory" placeholder="200">
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!eForm.valid" >Pridėti</button>
+
+    </form>
+  </div>
+</div>
