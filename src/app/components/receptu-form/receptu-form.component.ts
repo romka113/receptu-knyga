@@ -6,6 +6,7 @@ import {
   AbstractControl,
   FormArray,
 } from '@angular/forms';
+import { ReceptService } from '../../services/recept.service';
 
 @Component({
   selector: 'app-receptu-form',
@@ -15,7 +16,7 @@ import {
 export class ReceptuFormComponent implements OnInit {
   public eForm: FormGroup;
 
-  constructor() {
+  constructor(private receptServ: ReceptService) {
     this.eForm = new FormGroup({
       receptName: new FormControl(null, [
         Validators.required,
@@ -28,13 +29,16 @@ export class ReceptuFormComponent implements OnInit {
         this.validNumbers,
       ]),
       cookingDescription: new FormControl(null, Validators.required),
-      photo: new FormControl(null, [this.urlCheck]),
+      photo: new FormControl(null),
       calory: new FormControl(null),
       alergenai: new FormArray([]),
       ingriedientName: new FormArray([]),
     });
   }
   ngOnInit(): void {}
+  public newRecept() {
+    this.receptServ.addrecept(this.eForm.value).subscribe(() => {});
+  }
   public formsubmitas() {
     console.log(this.eForm.value);
   }
@@ -74,12 +78,12 @@ export class ReceptuFormComponent implements OnInit {
       return null;
     }
   }
-  urlCheck(control: AbstractControl): { [s: string]: boolean } | null {
-    let t: RegExp = /(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}/g;
-    if (!t.test(control.value)) {
-      return { 'negalimas Url adresas': true };
-    } else {
-      return null;
-    }
-  }
+  // urlCheck(control: AbstractControl): { [s: string]: boolean } | null {
+  //   let t: RegExp = /(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}/g;
+  //   if (!t.test(control.value)) {
+  //     return { 'negalimas Url adresas': true };
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }

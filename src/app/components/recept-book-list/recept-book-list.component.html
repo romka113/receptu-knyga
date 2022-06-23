@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">Receptu sarasas
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Recepto pavadinimas</th>
+        <th>Gaminimo laikas</th>
+        <th>Gaminimo Aprasymas</th>
+        <th>Photo</th>
+        <th>Kalorijos</th>
+        <th>Alergenai</th>
+        <th>Ingridientu pavadinimas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let recpt of receptBook">
+        <td>{{recpt.receptName}}</td>
+        <td>{{recpt.cookingTime}}</td>
+        <td>{{recpt.cookingDescription}}</td>
+        <td><img src="{{recpt.photo"></td>
+        <td>{{recpt.calory}}</td>
+        <td><div *ngFor="let rec of recpt.alergenai">{{rec}}</div></td>
+        <td><div *ngFor="let ingri of recpt.ingridientName">
+          {{ingri.productName}}{{ingri.kiekis}}{{ingri.vnt}}
+        </div></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
