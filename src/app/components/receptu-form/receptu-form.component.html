@@ -12,7 +12,7 @@
       <div formArrayName="ingriedientName">
         <h5>Ingridientai</h5>
         <div class="mb-3 row" *ngFor="let ingr of ingridient(); let i=index" [formGroup]="abstractToFormGroup(ingr)">
-        <div class="col-md-1">{{i+1}}</div>
+        <div class="col-md-1 bg-warning text-center">{{i+1}}</div>
         <div class="col-md-3">
           <input type="text" formControlName="productName" class="form-control " placeholder="Produkto pavadinimas">
         </div>
@@ -44,7 +44,13 @@
       <div formArrayName="alergenai">
         <h3>Alergenai</h3>
         <div class="mb-3 row" *ngFor="let alerg of alergyGrient(); let i=index">
-          <input type="text" placeholder="alergenai" [formControlName]="i">
+          <div class="col-md-1 bg-warning text-center">
+            {{i+1}}
+          </div>
+          <div class="col-11 ">
+          <input type="text" placeholder="alergenai" class="form-control" [formControlName]="i">
+
+          </div>
         </div>
       </div>
       <button type="button" class="btn btn-info mb-3 me-2" (click)="addAlgergen()">Pridėti alergena</button>
