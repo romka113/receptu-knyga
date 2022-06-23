@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  AbstractControl,
+  FormArray,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-receptu-form',
@@ -22,11 +28,43 @@ export class ReceptuFormComponent implements OnInit {
         this.validNumbers,
       ]),
       cookingDescription: new FormControl(null, Validators.required),
-      photo: new FormControl(null, [Validators.required, this.urlCheck]),
+      photo: new FormControl(null, [this.urlCheck]),
       calory: new FormControl(null),
+      alergenai: new FormArray([]),
+      ingriedientName: new FormArray([]),
     });
   }
   ngOnInit(): void {}
+  public formsubmitas() {
+    console.log(this.eForm.value);
+  }
+  public alergyGrient() {
+    return (<FormArray>this.eForm.get('alergenai')).controls;
+  }
+  public addAlgergen() {
+    const alergenn = new FormControl(null, Validators.required);
+    (<FormArray>this.eForm.get('alergenai')).push(alergenn);
+  }
+  public delleteAlergen() {
+    return (<FormArray>this.eForm.get('alergenai')).removeAt(-1);
+  }
+  public addIngriedient() {
+    const ingridient = new FormGroup({
+      productName: new FormControl(null, Validators.required),
+      kiekis: new FormControl(null, Validators.required),
+      vnt: new FormControl('vnt', Validators.required),
+    });
+    (<FormArray>this.eForm.get('ingriedientName')).push(ingridient);
+  }
+  public ingridient() {
+    return (<FormArray>this.eForm.get('ingriedientName')).controls;
+  }
+  public deleteingridient() {
+    return (<FormArray>this.eForm.get('ingriedientName')).removeAt(-1);
+  }
+  public abstractToFormGroup(formGroup: AbstractControl) {
+    return <FormGroup>formGroup;
+  }
 
   validNumbers(control: FormControl): { [s: string]: boolean } | null {
     if (control.value % 5 != 0) {
@@ -36,11 +74,10 @@ export class ReceptuFormComponent implements OnInit {
       return null;
     }
   }
-  urlCheck(control: FormControl): { [s: string]: boolean } | null {
-    let t =
-      /^(http['s]?:\/\/){?}(w{3}\.)[-a-z\d+&@#\/%?=~_|!:,.;]*[-a-z\d+&@#\/%=~_|]/;
+  urlCheck(control: AbstractControl): { [s: string]: boolean } | null {
+    let t: RegExp = /(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}/g;
     if (!t.test(control.value)) {
-      return { klaida: true };
+      return { 'negalimas Url adresas': true };
     } else {
       return null;
     }
