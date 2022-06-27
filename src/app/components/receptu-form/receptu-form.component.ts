@@ -51,11 +51,15 @@ export class ReceptuFormComponent implements OnInit {
         map((response) => {
           let exist = false;
           response.forEach((recept) => {
-            if (recept.receptName == control.value) {
+            if (
+              recept.receptName == control.value &&
+              recept.eatingTime == this.eForm.get('eatingTime')?.value
+            ) {
               exist = true;
             }
           });
           if (exist) {
+            console.log('error');
             return { error: 'Toks recepto pavadinimas egzistuoja' };
           } else {
             return null;
