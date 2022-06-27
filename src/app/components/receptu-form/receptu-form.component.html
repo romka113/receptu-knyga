@@ -7,7 +7,17 @@
       <div class="mb-3">
         <label for="receptName" class="form-label">Receptas:</label>
         <input type="text" id="receptName" class="form-control" formControlName="receptName" placeholder="Įveskite recepto pavadinima">
-<!--        <span *ngIf="!eForm.get('name')?.valid && eForm.get('name')?.touched  ">Vardas įvestas neteisingai</span>-->
+        <div>{{getError()}}</div>
+      </div>
+      <div class="mb-3">
+        <label for="eatTime" class="form-label">Valgymo laikas</label>
+        <select id="eatTime" class="form-control" formControlName="eatingTime">
+          <option value="pusryciai">Pusryciai</option>
+          <option value="priespieciai">Priespieciai</option>
+          <option value="pietus">Pietus</option>
+          <option value="vakriene">Vakariene</option>
+        </select>
+
       </div>
       <div formArrayName="ingriedientName">
         <h5>Ingridientai</h5>
@@ -17,10 +27,10 @@
           <input type="text" formControlName="productName" class="form-control " placeholder="Produkto pavadinimas">
         </div>
         <div class="col-md-3">
-          <input  type="text" formControlName="kiekis" class="form-control" placeholder="Kiekis">
+          <input  type="text" formControlName="quantity" class="form-control" placeholder="Kiekis">
         </div>
           <div class="col-md-3">
-        <select class="form-control col-md-3">
+        <select class="form-control col-md-3" formControlName="size">
           <option value="vnt">vnt</option>
           <option value="kg">kg</option>
           <option value="mililitres">ml</option>

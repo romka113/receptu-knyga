@@ -7,6 +7,7 @@
       <tr>
         <th>Recepto pavadinimas</th>
         <th>Gaminimo laikas</th>
+        <th>Laikas kada valgyti</th>
         <th>Gaminimo Aprasymas</th>
         <th>Photo</th>
         <th>Kalorijos</th>
@@ -18,13 +19,18 @@
       <tr *ngFor="let recpt of receptBook">
         <td>{{recpt.receptName}}</td>
         <td>{{recpt.cookingTime}}</td>
+        <td>{{recpt.eatingTime}}</td>
         <td>{{recpt.cookingDescription}}</td>
-        <td><img src="{{recpt.photo}}" style="width: 50px;height: 50px"></td>
+        <td><img src="{{recpt.photo}}" style="width: 50px;height: 50px" alt="pic"></td>
         <td>{{recpt.calory}}</td>
         <td><div *ngFor="let rec of recpt.alergenai">{{rec}}</div></td>
-        <td><div *ngFor="let ingri of recpt.ingridientName">
-          {{ingri.productName}}{{ingri.kiekis}}{{ingri.vnt}}
-        </div></td>
+        <td>
+          <div *ngFor="let ingri of recpt.ingriedientName">
+            {{ingri.productName}}
+           {{ingri.quantity}}
+           {{ingri.size}}
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>

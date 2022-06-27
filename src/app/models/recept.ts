@@ -5,6 +5,7 @@ export interface Recept {
   cookingDescription: string;
   photo: string;
   calory: number;
+  eatingTime: string;
   alergenai: string[];
-  ingridientName: { productName: string; kiekis: string; vnt: string }[];
+  ingriedientName: { productName: string; quantity: string; size: string }[];
 }

@@ -5,8 +5,11 @@ import {
   FormGroup,
   AbstractControl,
   FormArray,
+  AsyncValidatorFn,
+  ValidationErrors,
 } from '@angular/forms';
 import { ReceptService } from '../../services/recept.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-receptu-form',
@@ -18,11 +21,15 @@ export class ReceptuFormComponent implements OnInit {
 
   constructor(private receptServ: ReceptService) {
     this.eForm = new FormGroup({
-      receptName: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(30),
-      ]),
+      receptName: new FormControl(
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+        ],
+        this.receptNameCheck()
+      ),
       cookingTime: new FormControl(null, [
         Validators.required,
         Validators.max(1000),
@@ -33,9 +40,38 @@ export class ReceptuFormComponent implements OnInit {
       calory: new FormControl(null),
       alergenai: new FormArray([]),
       ingriedientName: new FormArray([]),
+      eatingTime: new FormControl(null, Validators.required),
     });
   }
   ngOnInit(): void {}
+
+  receptNameCheck(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.receptServ.getrecept().pipe(
+        map((response) => {
+          let exist = false;
+          response.forEach((recept) => {
+            if (recept.receptName == control.value) {
+              exist = true;
+            }
+          });
+          if (exist) {
+            return { error: 'Toks recepto pavadinimas egzistuoja' };
+          } else {
+            return null;
+          }
+        })
+      );
+    };
+  }
+
+  public getError() {
+    let control = this.eForm.get('receptName');
+    if (control?.errors != null) {
+      return control.errors['error'];
+    }
+    return '';
+  }
   public newRecept() {
     this.receptServ.addrecept(this.eForm.value).subscribe(() => {});
   }
@@ -55,8 +91,8 @@ export class ReceptuFormComponent implements OnInit {
   public addIngriedient() {
     const ingridient = new FormGroup({
       productName: new FormControl(null, Validators.required),
-      kiekis: new FormControl(null, Validators.required),
-      vnt: new FormControl('vnt', Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      size: new FormControl('vnt', Validators.required),
     });
     (<FormArray>this.eForm.get('ingriedientName')).push(ingridient);
   }
@@ -78,6 +114,7 @@ export class ReceptuFormComponent implements OnInit {
       return null;
     }
   }
+
   // urlCheck(control: AbstractControl): { [s: string]: boolean } | null {
   //   let t: RegExp = /(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}/g;
   //   if (!t.test(control.value)) {
