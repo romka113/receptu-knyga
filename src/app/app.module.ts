@@ -6,9 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReceptuFormComponent } from './components/receptu-form/receptu-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReceptBookListComponent } from './components/recept-book-list/recept-book-list.component';
+import { IngridientFormComponent } from './components/ingridient-form/ingridient-form.component';
 
 @NgModule({
-  declarations: [AppComponent, ReceptuFormComponent, ReceptBookListComponent],
+  declarations: [
+    AppComponent,
+    ReceptuFormComponent,
+    ReceptBookListComponent,
+    IngridientFormComponent,
+  ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

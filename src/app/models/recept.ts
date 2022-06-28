@@ -1,5 +1,6 @@
 export interface Recept {
-  id?: String;
+  id?: string;
+  likes: number;
   receptName: string;
   cookingTime: number;
   cookingDescription: string;
@@ -8,4 +9,7 @@ export interface Recept {
   eatingTime: string;
   alergenai: string[];
   ingriedientName: { productName: string; quantity: string; size: string }[];
+}
+export interface Ingridient {
+  ingridient: { [key: string]: string };
 }

@@ -10,10 +10,21 @@ import { ReceptService } from '../../services/recept.service';
 export class ReceptBookListComponent implements OnInit {
   public receptBook: Recept[] = [];
   constructor(private receptServ: ReceptService) {}
-
-  ngOnInit(): void {
+  private geRecept() {
     this.receptServ.getrecept().subscribe((response) => {
       this.receptBook = response;
     });
+  }
+  ngOnInit(): void {
+    this.geRecept();
+    this.receptServ.likesCount.subscribe(() => {
+      this.geRecept();
+    });
+    this.receptServ.mealCount();
+  }
+  public increaseLikesCount(id?: string) {
+    if (id != null) {
+      this.receptServ.increaseLikesCount(id);
+    }
   }
 }

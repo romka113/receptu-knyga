@@ -13,6 +13,8 @@
         <th>Kalorijos</th>
         <th>Alergenai</th>
         <th>Ingridientu pavadinimas</th>
+        <th>Likes</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -30,6 +32,10 @@
            {{ingri.quantity}}
            {{ingri.size}}
           </div>
+        </td>
+        <td>{{recpt.likes}}</td>
+        <td>
+          <button class="btn btn-success" (click)="increaseLikesCount(recpt.id)">Like</button>
         </td>
       </tr>
       </tbody>
