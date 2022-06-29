@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Recept } from '../models/recept';
 import { map } from 'rxjs';
 import { Meals } from '../models/meals';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class ReceptService {
   private readonly url =
     'https://receptuknyga-b2673-default-rtdb.europe-west1.firebasedatabase.app/';
   public likesCount = new EventEmitter();
-  constructor(private http: HttpClient) {}
+  public recept: Recept[] = [];
+  constructor(private http: HttpClient, private router: Router) {}
   public addrecept(recept: Recept) {
     return this.http.post(this.url + 'receptbook.json', recept);
   }
@@ -24,9 +26,23 @@ export class ReceptService {
           for (let key in response) {
             recept.push({ ...response[key], id: key });
           }
+          this.recept = recept;
           return recept;
         })
       );
+  }
+
+  public getReceptnow(id: string): Recept | null {
+    let recept: Recept | null = null;
+    this.recept.forEach((receptas) => {
+      if (receptas.id != null && receptas.id == id) {
+        recept = receptas;
+      }
+    });
+    if (recept == null) {
+      this.router.navigate(['']);
+    }
+    return recept;
   }
   public mealCount() {
     let breakfast = 0;
@@ -49,7 +65,6 @@ export class ReceptService {
           if (response[key].eatingTime == 'Vakariene') {
             supper++;
           }
-          console.log(response[key].eatingTime);
         }
         this.http
           .patch(this.url + 'meals.json', {
@@ -58,9 +73,7 @@ export class ReceptService {
             dinner: dinner,
             supper: supper,
           })
-          .subscribe((respose) => {
-            console.log(respose);
-          });
+          .subscribe((respose) => {});
       });
   }
   public increaseLikesCount(id: string) {
@@ -68,13 +81,11 @@ export class ReceptService {
     this.http
       .get<number>(this.url + 'receptbook/' + id + '/likes.json')
       .subscribe((response) => {
-        console.log(response, '1');
         likes = response;
         likes++;
         this.http
           .patch(this.url + 'receptbook/' + id + '.json', { likes: likes })
           .subscribe((respose) => {
-            console.log(respose);
             this.likesCount.emit();
           });
       });

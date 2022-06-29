@@ -10,6 +10,8 @@ import {
 } from '@angular/forms';
 import { ReceptService } from '../../services/recept.service';
 import { map, Observable } from 'rxjs';
+import { IngridientServiceService } from '../../services/ingridient-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-receptu-form',
@@ -18,8 +20,12 @@ import { map, Observable } from 'rxjs';
 })
 export class ReceptuFormComponent implements OnInit {
   public eForm: FormGroup;
-
-  constructor(private receptServ: ReceptService) {
+  public ingrident: { ingridient: string }[] = [];
+  constructor(
+    private receptServ: ReceptService,
+    private ingridientServ: IngridientServiceService,
+    private router: Router
+  ) {
     this.eForm = new FormGroup({
       receptName: new FormControl(
         null,
@@ -43,7 +49,17 @@ export class ReceptuFormComponent implements OnInit {
       eatingTime: new FormControl(null, Validators.required),
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getIngrideint();
+    this.ingridientServ.ingridientUpdate.subscribe(() => {
+      this.getIngrideint();
+    });
+  }
+  private getIngrideint() {
+    this.ingridientServ.getIngridient().subscribe((result) => {
+      this.ingrident = result;
+    });
+  }
 
   receptNameCheck(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -77,7 +93,8 @@ export class ReceptuFormComponent implements OnInit {
     return '';
   }
   public newRecept() {
-    this.receptServ.addrecept(this.eForm.value).subscribe(() => {});
+    this.receptServ.addrecept(this.eForm.value).subscribe();
+    this.router.navigate(['']);
   }
   public formsubmitas() {
     console.log(this.eForm.value);

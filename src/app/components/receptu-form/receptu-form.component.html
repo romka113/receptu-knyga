@@ -23,9 +23,12 @@
         <h5>Ingridientai</h5>
         <div class="mb-3 row" *ngFor="let ingr of ingridient(); let i=index" [formGroup]="abstractToFormGroup(ingr)">
         <div class="col-md-1 bg-warning text-center">{{i+1}}</div>
-        <div class="col-md-3">
-          <input type="text" formControlName="productName" class="form-control " placeholder="Produkto pavadinimas">
-        </div>
+          <div class="col-md-4">
+            <select class="form-control" formControlName="productName">
+              <option value=""></option>
+              <option *ngFor="let ingri of ingrident">{{ingri.ingridient }}</option>
+            </select>
+          </div>
         <div class="col-md-3">
           <input  type="text" formControlName="quantity" class="form-control" placeholder="Kiekis">
         </div>

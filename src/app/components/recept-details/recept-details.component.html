@@ -1,0 +1,46 @@
+
+
+
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">Pilnas recepto aprasymas</div>
+      <img src="{{recept?.photo}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 >Recepto pavadinimas : <p>{{recept?.receptName}}</p></h5>
+        <h5><p>{{recept?.eatingTime}}</p></h5>
+        <h5 >Recepto gaminimo laikas: <p>{{recept?.cookingTime}}</p></h5>
+        <h5 >Kaip gaminti: <p>{{recept?.cookingDescription}}</p></h5>
+        <h5 >Kalorijos: <p>{{recept?.calory}}</p></h5>
+        <h5>Alergenai:</h5>
+        <table class="table">
+          <thead>
+          <th>Alergenas</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let address of recept?.alergenai">
+            <td>{{ address }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <h5>Ingridientai:</h5>
+        <table class="table">
+          <thead>
+          <th>Produkto pavadinimas</th>
+          <th>Matavimo vnt</th>
+          <th>Kiekis</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let address of recept?.ingriedientName">
+            <td>{{ address.productName }}</td>
+            <td>{{ address.size }}</td>
+            <td>{{ address.quantity }}</td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  <div class="card-footer">
+    <div class="float-start"> <span class="text-muted"> Atlikta darbų: <b>{{ recept?.likes }}</b></span></div>
+    <button class="btn btn-success float-end btn-sm" (click)="increaseLikesCount(recept?.id)" >Like</button>
+  </div>
+
