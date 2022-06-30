@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReceptItemComponent } from './components/recept-book-list/recept-item/recept-item.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ReceptDetailsComponent } from './components/recept-details/recept-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ReceptDetailsComponent } from './components/recept-details/recept-detai
     HttpClientModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

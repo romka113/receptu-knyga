@@ -12,14 +12,55 @@ import { ReceptService } from '../../services/recept.service';
 import { map, Observable } from 'rxjs';
 import { IngridientServiceService } from '../../services/ingridient-service.service';
 import { Router } from '@angular/router';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-receptu-form',
   templateUrl: './receptu-form.component.html',
   styleUrls: ['./receptu-form.component.css'],
+  animations: [
+    trigger('animationBlock', [
+      state(
+        'padidejimas',
+        style({
+          'font-size': '25px',
+          width: '100%',
+          height: '150px',
+        })
+      ),
+      state(
+        'sumazejimas',
+        style({
+          'font-size': '16px',
+          width: '10%',
+        })
+      ),
+      transition('sumazejimas=>padidejimas', [animate(2000)]),
+      transition('padidejimas=>sumazejimas', [animate(2000)]),
+    ]),
+    trigger('validBtn', [
+      state('atsiradimas', style({ opacity: '1' })),
+      state(
+        'pradingimas',
+        style({
+          opacity: '0',
+        })
+      ),
+      transition('pradingimas=>atsiradimas', [animate(1000)]),
+      transition('atsiradimas=>pradingimas', [animate(1000)]),
+    ]),
+  ],
 })
 export class ReceptuFormComponent implements OnInit {
   public eForm: FormGroup;
+  public btnStatus = 'pradingimas';
+  public keitimasis = 'sumazejimas';
   public ingrident: { ingridient: string }[] = [];
   constructor(
     private receptServ: ReceptService,
@@ -53,8 +94,23 @@ export class ReceptuFormComponent implements OnInit {
     this.getIngrideint();
     this.ingridientServ.ingridientUpdate.subscribe(() => {
       this.getIngrideint();
+      this.eForm.statusChanges.subscribe((response) => {
+        console.log(response);
+        if (response == 'VALID') {
+          this.btnStatus = 'atisradimas';
+        } else {
+          this.btnStatus = 'pradingimas';
+        }
+      });
     });
   }
+  public Onfocus() {
+    if (this.keitimasis == 'sumazejimas') this.keitimasis = 'padidejimas';
+  }
+  public OnfocusOut() {
+    if (this.keitimasis == 'padidejimas') this.keitimasis = 'sumazejimas';
+  }
+
   private getIngrideint() {
     this.ingridientServ.getIngridient().subscribe((result) => {
       this.ingrident = result;
