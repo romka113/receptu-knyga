@@ -1,9 +1,9 @@
 <div class="card" style="width: 18rem;">
   <img src="{{recept?.photo}}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">{{recept?.receptName}}</h5>
-    <h5 class="card-title">{{recept?.eatingTime}}</h5>
-    <h5 class="card-title">{{recept?.likes}}</h5>
+    <h5> Recepto pavadinimas </h5><p>{{recept?.receptName}}</p>
+    <h5> Valgymo metas : </h5><p> {{recept?.eatingTime}}</p>
+    <h5> Patinka: {{recept?.likes}}</h5>
     <a class="btn btn-primary float-end " (click)="receptDetails(recept?.id)" >Detaliau</a>
   </div>
 </div>

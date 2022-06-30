@@ -41,5 +41,24 @@
 <!--      </tbody>-->
 <!--    </table>-->
 <!--  </div>-->
-  <app-recept-item *ngFor="let recept of receptBook" class="col-lg-3 col-md-4" [recept]="recept"></app-recept-item>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <label for="pusryciai">Pusryciai</label>
+      <input type="checkbox" id="pusryciai"  [(ngModel)]="filterPusryciai" (change)="displayRecept()">
+    </div>
+    <div class="col-md-3">
+      <label for="priespieciai">Priespieciai</label>
+      <input type="checkbox" id="priespieciai"  [(ngModel)]='filterPriespieciai' (change)="displayRecept()">
+    </div>
+    <div class="col-md-3">
+      <label for="pietus">Pietus</label>
+      <input type="checkbox" id="pietus" [(ngModel)]='filterPietus' (change)="displayRecept()">
+    </div>
+    <div class="col-md-3">
+      <label for="vakariene">Vakariene</label>
+      <input type="checkbox" id="vakariene"  [(ngModel)]='filterVakariene' (change)="displayRecept()">
+    </div>
+
+  </div>
+  <app-recept-item *ngFor="let recept of receptBookDisplay" class="col-lg-3 col-md-4" [recept]="recept"></app-recept-item>
 </div>
