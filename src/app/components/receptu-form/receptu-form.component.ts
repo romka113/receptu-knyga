@@ -45,21 +45,16 @@ import {
       transition('padidejimas=>sumazejimas', [animate(2000)]),
     ]),
     trigger('validBtn', [
-      state('atsiradimas', style({ opacity: '1' })),
-      state(
-        'pradingimas',
-        style({
-          opacity: '0',
-        })
-      ),
-      transition('pradingimas=>atsiradimas', [animate(1000)]),
-      transition('atsiradimas=>pradingimas', [animate(1000)]),
+      state('unhide', style({ opacity: '1' })),
+      state('hide', style({ opacity: '0' })),
+      transition('unhide=>hide', [animate(1000)]),
+      transition('hide=>unhide', [animate(1000)]),
     ]),
   ],
 })
 export class ReceptuFormComponent implements OnInit {
   public eForm: FormGroup;
-  public btnStatus = 'pradingimas';
+  public btnStatus = 'hide';
   public keitimasis = 'sumazejimas';
   public ingrident: { ingridient: string }[] = [];
   constructor(
@@ -95,11 +90,11 @@ export class ReceptuFormComponent implements OnInit {
     this.ingridientServ.ingridientUpdate.subscribe(() => {
       this.getIngrideint();
       this.eForm.statusChanges.subscribe((response) => {
-        console.log(response);
-        if (response == 'VALID') {
-          this.btnStatus = 'atisradimas';
+        // console.log(response, 'aasdfa');
+        if (response == 'INVALID') {
+          this.btnStatus = 'hide';
         } else {
-          this.btnStatus = 'pradingimas';
+          this.btnStatus = 'unhide';
         }
       });
     });

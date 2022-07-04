@@ -12,6 +12,7 @@ import { ReceptItemComponent } from './components/recept-book-list/recept-item/r
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ReceptDetailsComponent } from './components/recept-details/recept-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DocumentationModule } from './documentation/documentation.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    DocumentationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
