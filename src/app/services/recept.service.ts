@@ -4,13 +4,13 @@ import { Recept } from '../models/recept';
 import { map } from 'rxjs';
 import { Meals } from '../models/meals';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReceptService {
-  private readonly url =
-    'https://receptuknyga-b2673-default-rtdb.europe-west1.firebasedatabase.app/';
+  private readonly url = environment.dbUrl;
   public likesCount = new EventEmitter();
   public recept: Recept[] = [];
   constructor(private http: HttpClient, private router: Router) {}
