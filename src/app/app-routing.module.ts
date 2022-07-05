@@ -4,11 +4,13 @@ import { ReceptBookListComponent } from './components/recept-book-list/recept-bo
 import { ReceptuFormComponent } from './components/receptu-form/receptu-form.component';
 import { IngridientFormComponent } from './components/ingridient-form/ingridient-form.component';
 import { ReceptDetailsComponent } from './components/recept-details/recept-details.component';
+import { IngridientComponent } from './components/ingridient/ingridient.component';
 const routes: Routes = [
   {
     path: '',
     component: ReceptBookListComponent,
   },
+  { path: 'test', component: IngridientComponent },
   { path: 'newRecept', component: ReceptuFormComponent },
   { path: 'newIngridient', component: IngridientFormComponent },
   { path: 'receptDetails/:id', component: ReceptDetailsComponent },
