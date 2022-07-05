@@ -61,4 +61,9 @@
 
   </div>
   <app-recept-item *ngFor="let recept of receptBookDisplay" class="col-lg-3 col-md-4" [recept]="recept"></app-recept-item>
+  <table>
+    <tr *ngFor="let erep of receptBookDisplay">
+      <td class="receptName">{{erep.receptName}}</td>
+    </tr>
+  </table>
 </div>
